@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AutoUnzipper (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "AutoUnzipper (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

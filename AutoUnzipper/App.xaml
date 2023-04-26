@@ -1,0 +1,32 @@
+<Application
+    x:Class="AutoUnzipper.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AutoUnzipper"
+    xmlns:tb="using:H.NotifyIcon"
+    >
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="TrayIconResources.xaml"></ResourceDictionary>
+                <!-- Other merged dictionaries here -->
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Other app resources here -->
+            <!--<tb:TaskbarIcon
+                        x:Key="TrayIcon3"
+                        NoLeftClickDelay="True"
+                        IconSource="\Assets\tray_icon.ico"
+                    >
+                <tb:TaskbarIcon.ContextFlyout>
+                    <MenuFlyout>
+                        <ToggleMenuFlyoutItem x:Name="EnabledToggle" Text="Enabled" IsChecked="True"/>
+                        <ToggleMenuFlyoutItem x:Name="EnabledNotificationsToggle" Text="Notification on unpack" IsChecked="True"/>
+                        <MenuFlyoutSeparator></MenuFlyoutSeparator>
+                        <MenuFlyoutItem x:Name="ExitBtn" Text="Exit"/>
+                    </MenuFlyout>
+                </tb:TaskbarIcon.ContextFlyout>
+            </tb:TaskbarIcon>-->
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
