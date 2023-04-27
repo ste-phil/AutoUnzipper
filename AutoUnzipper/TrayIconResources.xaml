@@ -57,7 +57,7 @@
             <MenuFlyout>
                 <ToggleMenuFlyoutItem Command="{StaticResource EnableCmd}" IsChecked="True"/>
                 <ToggleMenuFlyoutItem Command="{StaticResource EnableNotificationsCmd}" IsChecked="True"/>
-                <ToggleMenuFlyoutItem Command="{StaticResource EnableDeleteZip}" IsChecked="True"/>
+                <ToggleMenuFlyoutItem Command="{StaticResource EnableDeleteZipCmd}" IsChecked="True"/>
                 <MenuFlyoutSeparator></MenuFlyoutSeparator>
                 <MenuFlyoutItem Command="{StaticResource ExitCmd}"/>
             </MenuFlyout>
