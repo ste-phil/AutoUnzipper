@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: dotnet publish
-      run: dotnet publish AutoUnzipper.sln -a x64 -c Release -o ${{env.DOTNET_ROOT}}\AutoUnzipper
+      run: dotnet publish -a x64 -c Release -property:PublishDir=${{env.DOTNET_ROOT}}\AutoUnzipper
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with: 
