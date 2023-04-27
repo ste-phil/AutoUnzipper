@@ -2,9 +2,11 @@
 
 $solutionDir = (get-location).path
 
-dotnet build -c Release
+cd AutoUnzipper
 
-cd "AutoUnzipper\bin\Release\net6.0-windows10.0.19041.0\win10-x64"
+dotnet build -c Release -r win10-x64 --self-contained
+
+cd "bin\Release\net6.0-windows10.0.19041.0\win10-x64"
 makeappx pack /v /d "." /p $solutionDir/AutoUnzipper.msix
 
 cd $solutionDir

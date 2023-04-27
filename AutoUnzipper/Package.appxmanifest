@@ -10,7 +10,7 @@
   <Identity
     Name="dc9b0539-fde4-498a-9028-41ce14a93fa7"
     Publisher="CN=phste"
-    Version="1.0.0.0" />
+    Version="1.1.4.0" />
 
   <Properties>
     <DisplayName>AutoUnzipper</DisplayName>
