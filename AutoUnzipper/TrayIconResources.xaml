@@ -54,10 +54,10 @@
                 />
         </tb:TaskbarIcon.GeneratedIcon>-->
         <tb:TaskbarIcon.ContextFlyout>
-            <MenuFlyout>
-                <ToggleMenuFlyoutItem Command="{StaticResource EnableCmd}" IsChecked="True"/>
-                <ToggleMenuFlyoutItem Command="{StaticResource EnableNotificationsCmd}" IsChecked="True"/>
-                <ToggleMenuFlyoutItem Command="{StaticResource EnableDeleteZipCmd}" IsChecked="True"/>
+            <MenuFlyout AreOpenCloseAnimationsEnabled="False">
+                <ToggleMenuFlyoutItem x:Name="EnableBtn" Command="{StaticResource EnableCmd}" IsChecked="True"/>
+                <ToggleMenuFlyoutItem x:Name="EnableNotificationsBtn" Command="{StaticResource EnableNotificationsCmd}" IsChecked="True"/>
+                <ToggleMenuFlyoutItem x:Name="EnableDeleteZipBtn" Command="{StaticResource EnableDeleteZipCmd}" IsChecked="True"/>
                 <MenuFlyoutSeparator></MenuFlyoutSeparator>
                 <MenuFlyoutItem Command="{StaticResource ExitCmd}"/>
             </MenuFlyout>

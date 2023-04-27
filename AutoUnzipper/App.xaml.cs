@@ -1,5 +1,6 @@
 ﻿using H.NotifyIcon;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
 using Windows.ApplicationModel;
@@ -82,6 +84,10 @@ namespace AutoUnzipper
             var enableDeleteZipCmd = Resources["EnableDeleteZipCmd"] as XamlUICommand;
             var exitCmd = Resources["ExitCmd"] as XamlUICommand;
 
+            (taskbarIcon.FindName("EnableBtn") as ToggleMenuFlyoutItem).IsChecked = logic.Enabled;
+            (taskbarIcon.FindName("EnableNotificationsBtn") as ToggleMenuFlyoutItem).IsChecked = logic.EnabledNotifications;
+            (taskbarIcon.FindName("EnableDeleteZipBtn") as ToggleMenuFlyoutItem).IsChecked = logic.EnabledDeleteZip;
+
             enableCmd.ExecuteRequested += Cmd_EnabledToggle;
             enableNotificationCmd.ExecuteRequested += Cmd_EnabledNotificationToggle;
             enableDeleteZipCmd.ExecuteRequested += Cmd_EnableDeleteZipToggle;
@@ -105,7 +111,7 @@ namespace AutoUnzipper
 
         private void Cmd_EnableDeleteZipToggle(XamlUICommand sender, ExecuteRequestedEventArgs args)
         {
-            logic.EnableDeleteZip = !logic.EnableDeleteZip;
+            logic.EnabledDeleteZip = !logic.EnabledDeleteZip;
         }
     }
 }

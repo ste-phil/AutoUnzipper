@@ -5,6 +5,7 @@ using System;
 using System.IO.Compression;
 using System.IO;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace AutoUnzipper
 {
@@ -12,23 +13,61 @@ namespace AutoUnzipper
     {
         private readonly string fileFilter = "*.zip";
         private FileSystemWatcher watcher;
+        private Configuration config;
 
-        public bool Enabled { get; set; } = true;
-        public bool EnabledNotifications { get; set; } = true;
-        public bool EnableDeleteZip { get; set; } = true;
+        private bool enabled = true;
+        private bool enabledNotifications = true;
+        private bool enabledDeleteZip = true;
 
+        public bool Enabled 
+        { 
+            get => enabled; 
+            set 
+            { 
+                enabled = value;
+                config.AppSettings.Settings["Enabled"].Value = value.ToString();
+                SaveSettings();
+            }
+        }
+
+        public bool EnabledNotifications 
+        { 
+            get => enabledNotifications; 
+            set
+            { 
+                enabledNotifications = value;
+                config.AppSettings.Settings["EnabledNotifications"].Value = value.ToString();
+                SaveSettings();
+            }
+        }
+
+        public bool EnabledDeleteZip 
+        { 
+            get => enabledDeleteZip; 
+            set 
+            { 
+                enabledDeleteZip = value;
+                config.AppSettings.Settings["EnabledDeleteZip"].Value = value.ToString();
+                SaveSettings();
+            } 
+        }
 
         public Logic()
         {
-            watcher = new FileSystemWatcher();
+            OpenSettings();
 
+            watcher = new FileSystemWatcher();
             string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
             watcher.Path = downloadsPath;
             watcher.Filter = fileFilter;
             watcher.EnableRaisingEvents = true;
-            watcher.Created += OnFileCreated;
+            //watcher.Created += OnFileCreated;
             watcher.Changed += OnFileChanged;
             watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
+
+            Enabled = Convert.ToBoolean(config.AppSettings.Settings["Enabled"].Value);
+            EnabledNotifications = Convert.ToBoolean(config.AppSettings.Settings["EnabledNotifications"].Value);
+            EnabledDeleteZip = Convert.ToBoolean(config.AppSettings.Settings["EnabledDeleteZip"].Value);
         }
 
         private void OnFileChanged(object sender, FileSystemEventArgs e)
@@ -46,25 +85,24 @@ namespace AutoUnzipper
                 ZipFile.ExtractToDirectory(e.FullPath, extractDir);
                 ShowNotification(extractDir, fileName);
                 DeleteZipFile(e.FullPath);
-            } catch { }
-        }
-
-        
-
-        private void OnFileCreated(object sender, FileSystemEventArgs e)
-        {
-            return;
-
-            if (!Enabled) return;
-
-            var fileName = Path.GetFileNameWithoutExtension(e.FullPath);
-            var path = Path.GetDirectoryName(e.FullPath);
-            var extractDir = Path.Combine(path, fileName);
-            if (!Directory.Exists(extractDir))
-            {
-                Directory.CreateDirectory(extractDir);
             }
+            catch { }
         }
+
+        //private void OnFileCreated(object sender, FileSystemEventArgs e)
+        //{
+        //    return;
+
+        //    if (!Enabled) return;
+
+        //    var fileName = Path.GetFileNameWithoutExtension(e.FullPath);
+        //    var path = Path.GetDirectoryName(e.FullPath);
+        //    var extractDir = Path.Combine(path, fileName);
+        //    if (!Directory.Exists(extractDir))
+        //    {
+        //        Directory.CreateDirectory(extractDir);
+        //    }
+        //}
 
         private void ShowNotification(string path, string fileName)
         {
@@ -86,9 +124,19 @@ namespace AutoUnzipper
 
         private void DeleteZipFile(string zipPath)
         {
-            if (!EnableDeleteZip) return;
+            if (!EnabledDeleteZip) return;
 
             File.Delete(zipPath);
+        }
+
+        private void OpenSettings()
+        {
+            config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        }
+
+        private void SaveSettings()
+        {
+            config.Save(ConfigurationSaveMode.Modified);
         }
     }
 }
