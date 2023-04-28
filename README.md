@@ -12,4 +12,4 @@ Features:
 
 
 ## How to install
-Install the provided certifiacate under Local Machine / Trusted root certificate authorizies
+Install the provided certificate under Local Machine / Trusted root certificate authorizies
