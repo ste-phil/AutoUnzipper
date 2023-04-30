@@ -10,7 +10,7 @@
   <Identity
     Name="dc9b0539-fde4-498a-9028-41ce14a93fa7"
     Publisher="CN=phste"
-    Version="1.1.4.0" />
+    Version="1.1.8.0" />
 
   <Properties>
     <DisplayName>AutoUnzipper</DisplayName>
@@ -29,7 +29,7 @@
 
   <Applications>
     <Application Id="App"
-      Executable="$targetnametoken$.exe"
+      Executable="AutoUnzipper.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
         DisplayName="AutoUnzipper"

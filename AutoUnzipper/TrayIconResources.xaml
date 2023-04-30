@@ -44,9 +44,11 @@
         Visibility="Visible"
         ToolTipText="ToolTip"
         NoLeftClickDelay="True"
-        IconSource="\Assets\tray_icon.ico"
         ContextMenuMode="SecondWindow"
         >
+        <tb:TaskbarIcon.IconSource>
+            <BitmapImage UriSource="\Assets\tray_icon.ico"></BitmapImage>
+        </tb:TaskbarIcon.IconSource>
         <!--<tb:TaskbarIcon.GeneratedIcon>
             <tb:GeneratedIcon
                 Text="❤️"
