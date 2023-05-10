@@ -79,7 +79,6 @@ namespace AutoUnzipper
             var extractDir = Path.Combine(path, fileName);
 
             if (Directory.Exists(extractDir)) return;
-
             try
             {
                 ZipFile.ExtractToDirectory(e.FullPath, extractDir);
@@ -110,15 +109,32 @@ namespace AutoUnzipper
 
 
             var builder = new AppNotificationBuilder()
-            .AddArgument("notification", "\"" + path + "\"")
-            .AddText($"Unzipped {fileName}")
-            .AddButton(new AppNotificationButton("Show in Folder")
-                .AddArgument("notification", "\"" + path + "\""));
+                .AddArgument("notification-folder", "\"" + path + "\"")
+                .AddText($"Unzipped {fileName}")
+                .AddButton(
+                    new AppNotificationButton("Show in Folder")
+                        .AddArgument("notification-folder", "\"" + path + "\"")
+                );
+
+            var variable = Environment.GetEnvironmentVariable("Path");
+            if (variable != null && variable.Contains("Microsoft VS Code"))
+            {
+                builder.AddButton(
+                   new AppNotificationButton("Show in VSCode")
+                       .AddArgument("notification-code", "\"" + path + "\"")
+                       .SetIcon(new Uri("ms-appx:///Assets/icon_vscode.png"))
+               );
+            }
+           
+
             //.AddButton(new AppNotificationButton("Delete zip & show")
             //    .AddArgument("notificationX", "\"" + path + "\""));
 
             var notificationManager = AppNotificationManager.Default;
             var notification = builder.BuildNotification();
+
+            Debug.WriteLine("Not payload:" + notification.Payload);
+
             notificationManager.Show(notification);
         }
 

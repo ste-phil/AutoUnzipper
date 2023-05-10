@@ -5,6 +5,8 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using Microsoft.Windows.AppNotifications.Builder;
+using Microsoft.Windows.AppNotifications;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -54,21 +56,31 @@ namespace AutoUnzipper
         {
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i].Contains("notification"))
+                if (args[i].Contains("notification-folder"))
                 {
                     var path = args[i].Split("=")[1];
 
                     Process.Start("explorer.exe", "/select," + path);
                     return;
                 }
-                else if (args[i].Contains("notification2"))
+                else if (args[i].Contains("notification-code"))
                 {
                     var path = args[i].Split("=")[1];
-                    var zipPath = path + ".zip";
-                    if (File.Exists(zipPath))
-                        File.Delete(zipPath);
-                    
-                    Process.Start("explorer.exe", "/select," + path);
+
+                    ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", $"/c code {path}")
+                    {
+                        RedirectStandardError = true,
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+
+                    var variable = Environment.GetEnvironmentVariable("Path");
+                    if (variable != null && variable.Contains("Microsoft VS Code"))
+                    {
+                        Process.Start(procStartInfo);
+                    }
+                   
                     return;
                 }
             }

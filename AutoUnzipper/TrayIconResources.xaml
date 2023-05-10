@@ -44,6 +44,8 @@
         Visibility="Visible"
         ToolTipText="ToolTip"
         NoLeftClickDelay="True"
+        MenuActivation="LeftOrRightClick"
+        PopupActivation="None"
         ContextMenuMode="SecondWindow"
         >
         <tb:TaskbarIcon.IconSource>
